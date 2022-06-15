@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 5.0.1 (Python 3.7.5 on win32)" generated="20220615 10:08:19.859" rpa="true" schemaversion="3">
+<suite id="s1" name="Tasks" source="d:\Robocorp\Multiple_tasks_sample_bot\tasks.robot">
+<test id="s1-t1" name="Minimal tasks" line="11">
+<kw name="Fetch csv data" library="Fetch_data">
+<kw name="Open Workbook" library="RPA.Excel.Files">
+<arg>C:/Users/rohit.talekar/Downloads/challenge.xlsx</arg>
+<doc>Open an existing Excel workbook.</doc>
+<msg timestamp="20220615 10:08:23.999" level="INFO">Opened workbook: &lt;RPA.Excel.Files.XlsxWorkbook object at 0x000001905BC92F48&gt;</msg>
+<status status="PASS" starttime="20220615 10:08:23.162" endtime="20220615 10:08:23.999"/>
+</kw>
+<kw name="Read Worksheet As Table" library="RPA.Excel.Files">
+<var>@{data}</var>
+<arg>header=True</arg>
+<doc>Read the contents of a worksheet into a Table container. Allows
+sorting/filtering/manipulating using the ``RPA.Tables`` library.</doc>
+<msg timestamp="20220615 10:08:24.579" level="INFO">Created table: Table(columns=['First Name', 'Last Name', 'Company Name', 'Role in Company', 'Address', 'Email', 'Phone Number'], rows=10)</msg>
+<msg timestamp="20220615 10:08:24.581" level="INFO">@{data} = [ {'First Name': 'John', 'Last Name': 'Smith', 'Company Name': 'IT Solutions', 'Role in Company': 'Analyst', 'Address': '98 North Road', 'Email': 'jsmith@itsolutions.co.uk', 'Phone Number': 4071654329...</msg>
+<status status="PASS" starttime="20220615 10:08:23.999" endtime="20220615 10:08:24.581"/>
+</kw>
+<kw name="Close Workbook" library="RPA.Excel.Files">
+<doc>Close the active workbook.</doc>
+<msg timestamp="20220615 10:08:24.585" level="INFO">Closing workbook: &lt;RPA.Excel.Files.XlsxWorkbook object at 0x000001905BC92F48&gt;</msg>
+<status status="PASS" starttime="20220615 10:08:24.585" endtime="20220615 10:08:24.585"/>
+</kw>
+<status status="PASS" starttime="20220615 10:08:23.155" endtime="20220615 10:08:24.585"/>
+</kw>
+<kw name="Open website" library="login_task">
+<kw name="Open Available Browser" library="RPA.Browser.Selenium">
+<arg>https://www.rpachallenge.com/</arg>
+<doc>Attempts to open a browser on the user's device from a set of
+supported browsers. Automatically downloads a corresponding webdriver
+if none is already installed.</doc>
+<msg timestamp="20220615 10:08:24.592" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<msg timestamp="20220615 10:08:24.642" level="INFO">Created download root directory: C:\Users\rohit.talekar\AppData\Local\robocorp\webdrivers</msg>
+<msg timestamp="20220615 10:08:24.642" level="INFO">Created symlink directory: C:\Users\rohit.talekar\AppData\Local\robocorp\webdrivers</msg>
+<msg timestamp="20220615 10:08:24.650" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<msg timestamp="20220615 10:08:26.862" level="INFO">Created Chrome browser with arguments: --disable-dev-shm-usage --disable-web-security --allow-running-insecure-content --no-sandbox</msg>
+<msg timestamp="20220615 10:08:26.870" level="INFO" html="true">&lt;p&gt;Attempted combinations:&lt;/p&gt;&lt;div class="doc"&gt;&lt;table&gt;&lt;tr&gt;&lt;th&gt;Browser&lt;/th&gt;&lt;th&gt;Download&lt;/th&gt;&lt;th&gt;Error&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Chrome&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;td&gt;Message: 'chromedriver' executable needs to be in PATH. Please see https://sites.google.com/a/chromium.org/chromedriver/home
+&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Chrome&lt;/td&gt;&lt;td&gt;True&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</msg>
+<msg timestamp="20220615 10:08:26.870" level="INFO">Opening url 'https://www.rpachallenge.com/'</msg>
+<status status="PASS" starttime="20220615 10:08:24.592" endtime="20220615 10:08:40.828"/>
+</kw>
+<status status="PASS" starttime="20220615 10:08:24.592" endtime="20220615 10:08:40.835"/>
+</kw>
+<kw name="Fill up form fields" library="Data_Entry_task">
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>Start</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20220615 10:08:40.848" level="INFO">Clicking button 'Start'.</msg>
+<status status="PASS" starttime="20220615 10:08:40.839" endtime="20220615 10:08:41.080"/>
+</kw>
+<for flavor="IN">
+<var>${row}</var>
+<value>@{data}</value>
+<iter>
+<var name="${row}"/>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>xpath://input[@ng-reflect-name="labelFirstName"]</arg>
+<arg>${row}[First Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20220615 10:08:41.099" endtime="20220615 10:08:41.101"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelLastName"]</arg>
+<arg>${row}[Last Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20220615 10:08:41.101" endtime="20220615 10:08:41.110"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelPhone"]</arg>
+<arg>${row}[Phone Number]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20220615 10:08:41.110" endtime="20220615 10:08:41.110"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelEmail"]</arg>
+<arg>${row}[Email]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20220615 10:08:41.118" endtime="20220615 10:08:41.118"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelAddress"]</arg>
+<arg>${row}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20220615 10:08:41.118" endtime="20220615 10:08:41.118"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelCompanyName"]</arg>
+<arg>${row}[Company Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20220615 10:08:41.133" endtime="20220615 10:08:41.133"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelRole"]</arg>
+<arg>${row}[Role in Company]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20220615 10:08:41.133" endtime="20220615 10:08:41.133"/>
+</kw>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>css:input[value="Submit"]</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20220615 10:08:41.133" endtime="20220615 10:08:41.149"/>
+</kw>
+<status status="NOT RUN" starttime="20220615 10:08:41.091" endtime="20220615 10:08:41.149"/>
+</iter>
+<status status="NOT RUN" starttime="20220615 10:08:41.088" endtime="20220615 10:08:41.155"/>
+</for>
+<status status="PASS" starttime="20220615 10:08:40.839" endtime="20220615 10:08:41.155"/>
+</kw>
+<status status="PASS" starttime="20220615 10:08:23.142" endtime="20220615 10:08:41.164"/>
+</test>
+<doc>Template robot main suite.</doc>
+<status status="PASS" starttime="20220615 10:08:19.875" endtime="20220615 10:08:41.176"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tasks</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Tasks">Tasks</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
